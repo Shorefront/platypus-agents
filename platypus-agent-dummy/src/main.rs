@@ -1,14 +1,14 @@
 
-use common::register;
+use common::{get_url,register};
 use log::info;
 use config::{Config,Environment};
 use serde::Deserialize;
 
 #[derive(Debug,Deserialize)]
 struct Settings {
-    pub platypus_host : String,
-    pub platypus_port : u16,
-    pub platypus_tls : bool,
+    pub host : String,
+    pub port : u16,
+    pub tls : Option<bool>,
 }
 
 fn main() -> Result<(),config::ConfigError> {
@@ -29,7 +29,9 @@ fn main() -> Result<(),config::ConfigError> {
 
     let config : Settings = settings.try_deserialize()?;
 
-    register("platypus.server",config.platypus_host);
+    let url = get_url(config.tls.unwrap_or_default(),config.host,config.port);
+
+    register("platypus.server",url);
 
     Ok(())
 }
