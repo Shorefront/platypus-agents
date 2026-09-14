@@ -1,4 +1,5 @@
 
+use common::register;
 use log::info;
 
 fn main() {
@@ -6,4 +7,6 @@ fn main() {
     let ver = env!("CARGO_PKG_VERSION");
     env_logger::init();
     info!("Version\t: {} v{}", pkg, ver);
+
+    register("platypus.server");
 }
