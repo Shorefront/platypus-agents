@@ -1,14 +1,30 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+use config::Config;
+use std::sync::OnceLock;
+use log::info;
+use serde::Deserialize;
+
+pub fn get<'a, T: serde::Deserialize<'a>>(path: &str) -> Option<T> {
+    config().get::<T>(path).ok()
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+fn config() -> &'static Config {
+    static CONFIG: OnceLock<Config> = OnceLock::new();
+    CONFIG.get_or_init(|| {
+        Config::builder()
+            .add_source(
+                config::Environment::with_prefix("PLATYPUS")
+                    .try_parsing(true)
+                    .separator("_")
+                    .list_separator(","),
+            )
+            .build()
+            .unwrap()
+    })
+}  
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+pub fn register(_end_point : &str) {
+    // Registration logic here
+    // USe reqwest to register end-point with Platypus
+    let platypus_server = get::<String>("SERVER").expect("Platypus server URL not configured");
+    log::info!("Platypus: {platypus_server}");
 }
