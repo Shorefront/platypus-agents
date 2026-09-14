@@ -1,10 +1,9 @@
 [package]
-name = "platypus-agent-dummy"
+name = "platypus-agent-rabbitmq"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-actix-web = "4.15.0"
-config-rs = "0.1.3"
 env_logger = "0.11.11"
 log = "0.4.34"
+tmflib = "0.1.41"

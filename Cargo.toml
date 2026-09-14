@@ -1,4 +1,4 @@
 [workspace]
 resolver = "3"
-members = ["common", "platypus-agent-camunda", "platypus-agent-dummy","platypus-agent-kafka", "platypus-agent-temporal"]
+members = ["common", "platypus-agent-camunda", "platypus-agent-dummy","platypus-agent-kafka", "platypus-agent-rabbitmq", "platypus-agent-temporal"]
 
