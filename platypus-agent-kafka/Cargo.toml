@@ -1,0 +1,7 @@
+[package]
+name = "platypus-agent-kafka"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tmflib = "0.1.41"
